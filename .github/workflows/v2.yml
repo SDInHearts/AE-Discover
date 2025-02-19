@@ -42,8 +42,8 @@ jobs:
 
     - name: Commit and push JSON files
       run: |
-        git config --global user.email "youremail@example.com"
-        git config --global user.name "yourusername"
+        git config --global user.email "rifatahmedsajeeb@gmail.com"
+        git config --global user.name "SDInHearts"
         git add page/*.json
         git commit -m "Update scraped movie data" || echo "No changes to commit"
         git push
