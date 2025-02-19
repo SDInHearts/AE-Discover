@@ -9,11 +9,23 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+
+chrome_options = Options()
+chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+chrome_options.add_argument("--no-sandbox")  # Bypass OS security model
+chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resources in container
+chrome_options.add_argument("--disable-gpu")  # Disable GPU hardware acceleration
+chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
+
+
 
 
 # Setup Selenium WebDriver
 service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
+
+# Initialize WebDriver
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Base URL
 base_url = "https://www.adultdvdempire.com/all-dvds.html"
