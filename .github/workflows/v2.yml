@@ -1,4 +1,4 @@
-name: Discover Movies V2
+name: Scraping Movies
 
 on:
   schedule:
@@ -34,4 +34,17 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run the scraping script
+      run: python scrape.py
+
+    - name: Commit and push JSON files
+      run: |
+        git config --global user.email "youremail@example.com"
+        git config --global user.name "yourusername"
+        git add page/*.json
+        git commit -m "Update scraped movie data" || echo "No changes to commit"
+        git push
+      continue-on-error: true  # Prevents workflow failure if there's no change
