@@ -1,3 +1,4 @@
+import os
 import re
 import json
 import time
@@ -8,6 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
+
 
 # Setup Selenium WebDriver
 service = Service(ChromeDriverManager().install())
@@ -78,8 +80,9 @@ def go_to_next_page(driver: WebDriver):
 
 
 def save_movies_to_json(movie_details, page_number):
-    """Save movie details to a JSON file named page-<number>.json"""
-    file_name = f"page-{page_number}.json"
+    """Save movie details to a JSON file inside the 'page/' directory"""
+    os.makedirs("page", exist_ok=True)  # Ensure the directory exists
+    file_name = f"page/{page_number}.json"
     with open(file_name, "w", encoding="utf-8") as json_file:
         json.dump(movie_details, json_file, indent=4, ensure_ascii=False)
     print(f"Saved {len(movie_details)} movies to {file_name}")
