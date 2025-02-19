@@ -11,18 +11,23 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 
+# Configure Chrome options
 chrome_options = Options()
-chrome_options.add_argument("--headless")  # Run Chrome in headless mode
+chrome_options.add_argument("--headless")  # Run in headless mode
 chrome_options.add_argument("--no-sandbox")  # Bypass OS security model
-chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resources in container
-chrome_options.add_argument("--disable-gpu")  # Disable GPU hardware acceleration
-chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
+chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resources
+chrome_options.add_argument("--disable-gpu")
+chrome_options.add_argument("--remote-debugging-port=9222")
 
+# Manually specify ChromeDriver path
+chrome_driver_path = "/usr/local/bin/chromedriver"
 
+# Set up the WebDriver with the manually installed ChromeDriver
+service = Service(chrome_driver_path)
 
 
 # Setup Selenium WebDriver
-service = Service(ChromeDriverManager().install())
+# service = Service(ChromeDriverManager().install())
 
 # Initialize WebDriver
 driver = webdriver.Chrome(service=service, options=chrome_options)
