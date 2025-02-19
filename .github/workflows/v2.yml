@@ -16,7 +16,7 @@ jobs:
     - name: Install Chrome & ChromeDriver
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip libnss3 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libasound2
+        sudo apt-get install -y wget unzip libnss3 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libgbm1
         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get install -f -y
         CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
