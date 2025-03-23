@@ -23,7 +23,7 @@ service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Base URL
-base_url = "https://www.adultdvdempire.com/all-dvds.html"
+base_url = "https://adultempire.lustycodes.workers.dev/?url=https://www.adultdvdempire.com/all-dvds.html"
 
 # Open the URL
 driver.get(base_url)
