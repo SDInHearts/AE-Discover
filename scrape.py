@@ -19,10 +19,10 @@ chrome_options.add_argument("--disable-gpu")  # Disable GPU hardware acceleratio
 chrome_options.add_argument("--remote-debugging-port=9222")  # Enable remote debugging
 
 # Manually specify the path to ChromeDriver
-chrome_driver_path = "/usr/local/bin/chromedriver"
+#chrome_driver_path = "/usr/local/bin/chromedriver"
 
 # Start the WebDriver with the options and the specified ChromeDriver path
-service = Service(chrome_driver_path)
+service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 
