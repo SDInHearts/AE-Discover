@@ -9,6 +9,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webdriver import WebDriver
+import chromedriver_autoinstaller
+chromedriver_autoinstaller.install()  # Automatically installs matching chromedriver
 
 
 chrome_options = Options()
