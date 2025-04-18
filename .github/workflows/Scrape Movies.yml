@@ -3,37 +3,32 @@ name: UPDATED Scraping Movies
 on:
   schedule:
     - cron: "0 0 * * *"  # Runs at midnight every day
-  workflow_dispatch:  # Allows manual execution
+  workflow_dispatch:
 
 jobs:
   scrape:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Fetch the repository code
+      uses: actions/checkout@v2
 
-    - name: Install Google Chrome 114
+    - name: Install Google Chrome from Ubuntu repo
       run: |
-        wget https://edgedl.me.gvt1.com/edgedl/chrome/linux/114.0.5735.90/google-chrome-stable_current_amd64.deb -O chrome114.deb
-        sudo dpkg -i chrome114.deb || sudo apt-get install -f -y
-
-    - name: Install ChromeDriver 114
-      run: |
-        wget -q https://chromedriver.storage.googleapis.com/114.0.5735.90/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable || true  # fallback for potential dep errors
+        google-chrome --version
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-        
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install chromedriver-autoinstaller
 
     - name: Run the scraping script
       run: python scrape.py
