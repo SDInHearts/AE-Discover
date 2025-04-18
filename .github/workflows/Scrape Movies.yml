@@ -33,18 +33,23 @@ jobs:
     - name: Run the scraping script
       run: python scrape.py
       
-    - name: Check for changes and commit JSON files
+    - name: Commit and push JSON files to data-branch
       run: |
-        git config --global user.email "rifatahmedsajeeb@gmail.com"
-        git config --global user.name "SDInHearts"
-    
-        git status
-        git add page/*.json
-    
-        if git diff --cached --quiet; then
-          echo "No changes to commit"
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+        # Create and switch to the data-branch
+        git fetch
+        git switch --create data-branch || git switch data-branch
+
+        # Copy only the .json files
+        git add *.json
+
+        # Only commit if there are changes
+        if ! git diff --cached --quiet; then
+          git commit -m "Update scraped JSON files - $(date)"
+          git push origin data-branch
         else
-          git commit -m "Update scraped movie data"
-          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git HEAD:main
+          echo "No changes to commit."
         fi
 
