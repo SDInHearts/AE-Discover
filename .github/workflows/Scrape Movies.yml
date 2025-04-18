@@ -32,20 +32,18 @@ jobs:
 
     - name: Run the scraping script
       run: python scrape.py
-
+      
     - name: Check for changes and commit JSON files
       run: |
         git config --global user.email "rifatahmedsajeeb@gmail.com"
         git config --global user.name "SDInHearts"
-        git status
 
-        # Add both tracked and untracked .json files in page/
+        git status
         git add page/*.json
 
-        # Check for any staged changes before committing
         if git diff --cached --quiet; then
           echo "No changes to commit"
         else
           git commit -m "Update scraped movie data"
-          git push
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git HEAD:main
         fi
